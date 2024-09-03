@@ -3,16 +3,27 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-
-        //var cadeteria = CargaDatos.CSVCadeteria("cadeteria.csv");
-        var cadeteria = new Cadeteria();
-       // CargaDatos.CSVCadetes("cadetes.csv", cadeteria);
-
-        int opcion = 0;
-
+        string pathCSV = "Archivos/cadeteria.csv";
+        string pathJSON = "Archivos/cadeteria.json";
+        int opcion;
+        Cadeteria cadeteria;
+        Menu1();
+        opcion = Convert.ToInt32(Console.ReadLine());
+        if (opcion == 1)
+        {
+            var JSON = new AccesoJSON();
+            cadeteria = JSON.CargaCadeteria(pathJSON);
+        }
+        else
+        {
+            var CSV = new AccesoCSV();
+            cadeteria = CSV.CargaCadeteria(pathCSV);
+        }
+        opcion = 1;
+        System.Console.WriteLine("\n-----------------------------");
         while (opcion == 1)
         {
-            Menu();
+            Menu2();
             opcion = Convert.ToInt32(Console.ReadLine());
             switch (opcion)
             {
@@ -38,8 +49,15 @@ internal class Program
 
 
         }
+        static void Menu1()
+        {
+            Console.WriteLine("\n1-Cargar datos JSON.");
+            Console.WriteLine("\n2-Cargar datos CSV.");
+            Console.WriteLine("\nIngrese la opcion: ");
 
-        static void Menu()
+
+        }
+        static void Menu2()
         {
             Console.WriteLine("\n1- Dar de alta pedido.");
             Console.WriteLine("\n2- Asignar pedido a cadete.");

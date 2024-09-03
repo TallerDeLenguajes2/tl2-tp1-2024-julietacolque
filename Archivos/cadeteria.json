@@ -1,45 +1,38 @@
 {
     "Nombre": "cadeteria1",
     "Telefono": "388776",
-    "ListadoCadetes":[
+    "ListadoCadetes": [
         {
             "Id": 1,
-            "Nombre":"nombre1",
+            "Nombre": "nombre1",
             "Direccion": "direccion1",
-            "Telefono":"telefono1"
-
+            "Telefono": "telefono1"
         },
         {
             "Id": 2,
-            "Nombre":"nombre2",
+            "Nombre": "nombre2",
             "Direccion": "direccion2",
-            "Telefono":"telefono2"
-
+            "Telefono": "telefono2"
         },
         {
             "Id": 3,
-            "Nombre":"nombre2",
+            "Nombre": "nombre2",
             "Direccion": "direccion2",
-            "Telefono":"telefono2"
-
+            "Telefono": "telefono2"
         },
         {
             "Id": 4,
-            "Nombre":"nombre4",
+            "Nombre": "nombre4",
             "Direccion": "direccion4",
-            "Telefono":"telefono4"
-
+            "Telefono": "telefono4"
         },
-
         {
             "Id": 5,
-            "Nombre":"nombre5",
+            "Nombre": "nombre5",
             "Direccion": "direccion5",
-            "Telefono":"telefono5"
-
+            "Telefono": "telefono5"
         }
-
-    ]
-
-
+    ],
+    "ListaPedidos": []
 }
+

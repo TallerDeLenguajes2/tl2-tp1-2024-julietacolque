@@ -20,6 +20,7 @@
 
 ### Teniendo en cuenta los principios de abstracción y ocultamiento, que atributos, propiedades y métodos deberían ser públicos y cuáles privados.
 
+####Todos los atributos deberian ser privados, y con sus respectivas propiedades en caso de necesitarlos desde ####otro lugar, y todos los metodos publicos salvo aquellos que sean necesarios para realizar alguna tarea dentro ####de la propia clase y que no es necesario que sea visto por el usuario.
 
 ### ¿Cómo diseñaría los constructores de cada una de las clases?
 

@@ -1,14 +1,11 @@
-
-using System.Runtime.InteropServices;
-
 namespace tl2_tp1_2024_julietacolque
 {
     public class Cadeteria
     {
         public string Nombre { get; set; }
         public string Telefono { get; set; }
-        public List<Cadete> ListadoCadetes { get; set; } = new List<Cadete>();
-
+        public List<Cadete> ListadoCadetes { get; set; } = new();
+        public List<Pedido> ListaPedidos { get; set; } = new();
         public Cadeteria(string nombre, string telefono)
         {
             Nombre = nombre;
@@ -18,47 +15,32 @@ namespace tl2_tp1_2024_julietacolque
         {
 
         }
-
-        public void AltaPedidos(Pedido pedido, int id_cadete)
-        {
-            AsignarPedido(pedido, id_cadete);
-
+        public void AltaPedido(Pedido pedido){
+            ListaPedidos.Add(pedido);
         }
-
-        public void AsignarPedido(Pedido pedido, int id_cadete)
+        public void AsignarCadeteAPedido(int id_cadete, int id_pedido)
         {
-            foreach (var cadete in ListadoCadetes)
+            foreach (var pedido in ListaPedidos)
             {
-                if (cadete.Id == id_cadete)
+                if (pedido.Id == id_pedido)
                 {
-                    cadete.AddPedido(pedido);
+                    pedido.Cadete.Id = id_cadete;
                 }
             }
+            //ListaPedidos[id_pedido].Cadete = ListadoCadetes[id_cadete];
         }
+
+
+
         public void CambiarEstado(int id_pedido, int id_cadete, Estados estado)
         {
             foreach (var cadete in ListadoCadetes)
             {
                 if (cadete.Id == id_cadete)
                 {
-                    cadete.ListaPedidos[id_pedido].Estado = estado;
+                    ListaPedidos[id_pedido].Estado = estado;
                 }
             }
-        }
-
-        public void ReasignarPedido(int id_cadete, int id_pedido, int nuevo_cadete)
-        {
-            Pedido pedido = null;
-            foreach (var cadete in ListadoCadetes)
-            {
-                if (cadete.Id == id_cadete)
-                {
-                    pedido = cadete.ListaPedidos[id_pedido];
-                    cadete.ListaPedidos.RemoveAt(id_pedido);
-                    break;
-                }
-            }
-            if (pedido != null) { AsignarPedido(pedido, nuevo_cadete); }
         }
 
         public void CargarCadete(int id, string nombre, string dire, string tel)
@@ -68,24 +50,46 @@ namespace tl2_tp1_2024_julietacolque
             ListadoCadetes.Add(cadete);
         }
 
+        public float JornalACobrar(int id_cadete)
+        {
+            float suma = 0;
+
+            foreach (var pedido in ListaPedidos)
+            {
+
+                if (pedido.Estado == Estados.Completado && pedido.Cadete.Id == id_cadete)
+                {
+                    suma += 500;
+                }
+            }
+            return suma;
+        }
+
+
+
+
+
+
         public void Informe()
         {
-            var montoGanado = ListadoCadetes.Select(x => x.JornalACobrar()).ToList();
-            var cantEnvios = ListadoCadetes.Select(c => c.ListaPedidos.Count(p => p.Estado == Estados.Completado)).ToList();
-            var promedio = ListadoCadetes.Select(c => c.ListaPedidos.Any() ?
-                                                 c.ListaPedidos.Count(p => p.Estado == Estados.Completado) / (double)c.ListaPedidos.Count() : 0.0).ToList();
+            //var montoGanado = ListadoCadetes.Select(x => x.JornalACobrar()).ToList();
+            var cantEnvios = ListadoCadetes.Select(c => ListaPedidos.Count(p => p.Estado == Estados.Completado)).ToList();
+            var promedio = ListadoCadetes.Select(c => ListaPedidos.Any() ?
+                                                 ListaPedidos.Count(p => p.Estado == Estados.Completado) / (double)ListaPedidos.Count() : 0.0).ToList();
 
 
             for (int i = 0; i < ListadoCadetes.Count; i++)
             {
                 Console.WriteLine($"\n-----  Cadete {ListadoCadetes[i].Id}  -----");
-                Console.WriteLine($"\nMonto Ganado: {montoGanado[i]}");
-                Console.WriteLine($"\nCantidad de pedidos: {ListadoCadetes[i].ListaPedidos.Count}");
+                // Console.WriteLine($"\nMonto Ganado: {montoGanado[i]}");
+                // Console.WriteLine($"\nCantidad de pedidos: {ListadoCadetes[i].ListaPedidos.Count}");
                 Console.WriteLine($"\nCantidad envios realizados: {cantEnvios[i]}");
                 Console.WriteLine($"\nPromedio de envios: {promedio[i] * 100}%");
             }
 
         }
+
+
     }
 
 
@@ -95,3 +99,24 @@ namespace tl2_tp1_2024_julietacolque
            envíos promedio por cadete.
       */
 }
+
+
+/*
+  public void ReasignarPedido(int id_cadete, int id_pedido, int nuevo_cadete)
+        {
+            Pedido pedido = null;
+            foreach (var cadete in ListadoCadetes)
+            {
+                if (cadete.Id == id_cadete)
+                {
+                    pedido = ListaPedidos[id_pedido];
+                    ListaPedidos.RemoveAt(id_pedido);
+                    break;
+                }
+            }
+            if (pedido != null) { AsignarPedido(pedido, nuevo_cadete); }
+        }
+
+
+
+*/

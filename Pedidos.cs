@@ -11,7 +11,7 @@ namespace tl2_tp1_2024_julietacolque
 
         public Estados Estado { get; set; }
 
-
+        public Cadete Cadete {get;set;}
         public Pedido(string obs, string nombre, string direccion, string telefono, string datos)
         {
             Id = ++incremento;

@@ -1,24 +1,12 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Security.Cryptography.X509Certificates;
-using Microsoft.Win32.SafeHandles;
-using tl2_tp1_2024_julietacolque;
+﻿using tl2_tp1_2024_julietacolque;
 internal class Program
 {
     private static void Main(string[] args)
     {
 
-        var cadeteria = CargaDatos.CSVCadeteria("cadeteria.csv");
-
-        CargaDatos.CSVCadetes("cadetes.csv", cadeteria);
-
-
-        // RECORRE LOS DATOS DE LOS CADETES Y LOS MUESTRA.
-        /*
-        foreach (var cadete in cadeteria.ListadoCadetes)
-        {
-            var muestra = $"Id:{cadete.Id}\nNombre:{cadete.Nombre}\ndireccion:{cadete.Direccion}\ntelefono:{cadete.Telefono}\n";
-            Console.WriteLine(muestra);
-        }*/
+        //var cadeteria = CargaDatos.CSVCadeteria("cadeteria.csv");
+        var cadeteria = new Cadeteria();
+       // CargaDatos.CSVCadetes("cadetes.csv", cadeteria);
 
         int opcion = 0;
 
@@ -29,16 +17,16 @@ internal class Program
             switch (opcion)
             {
                 case 1:
-                    cadeteria.AltaPedidos(CrearPedido(), SolicitarId("cadete"));
+                    cadeteria.AltaPedido(CrearPedido());
                     break;
                 case 2:
-                    cadeteria.AsignarPedido(CrearPedido(), SolicitarId("cadete"));
+                    cadeteria.AsignarCadeteAPedido(SolicitarId("cadete"), SolicitarId("pedido"));
                     break;
                 case 3:
                     cadeteria.CambiarEstado(SolicitarId("pedido"), SolicitarId("cadete"), SolicitarEstado());
                     break;
                 case 4:
-                    cadeteria.ReasignarPedido(SolicitarId("cadete"), SolicitarId("pedido"), SolicitarId("Nuevo cadete"));
+                    cadeteria.AsignarCadeteAPedido(SolicitarId("cadete"), SolicitarId("pedido"));
                     break;
                 default:
                     Console.WriteLine("No existe la opcion");
@@ -100,23 +88,20 @@ internal class Program
         }
         //prueba
 
-        Pedido pedido = new("observacion", "pedido", "direccion", "telefono", "datos");
-        Pedido pedido1 = new("observacion", "pedido", "direccion", "telefono", "datos");
+        Pedido pedido0 = new("observacion0", "pedido0", "direccion0", "telefono0", "datos0");
+        Pedido pedido1 = new("observacion1", "pedido1", "direccion1", "telefono1", "datos1");
+        Pedido pedido2 = new("observacion2", "pedido2", "direccion2", "telefono2", "datos2");
 
-        cadeteria.AsignarPedido(pedido, 1);
 
-        cadeteria.AsignarPedido(pedido1, 2);
-        cadeteria.AsignarPedido(pedido, 2);
+        cadeteria.AltaPedido(pedido0);
+        cadeteria.AltaPedido(pedido1);
+        cadeteria.AltaPedido(pedido2);
 
-        cadeteria.AsignarPedido(pedido, 3);
-        cadeteria.AsignarPedido(pedido, 4);
 
-      /*  cadeteria.AsignarPedido(pedido1, 5);
-        cadeteria.AsignarPedido(pedido, 5);
-*/
-        cadeteria.CambiarEstado(0, 1, Estados.Completado);
 
-        cadeteria.Informe();
+        cadeteria.CambiarEstado(1, 1, Estados.Completado);
+
+        //cadeteria.Informe();
 
 
 

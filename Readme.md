@@ -17,15 +17,15 @@
 
 #### Clase Cadete:
 
-
 ### Teniendo en cuenta los principios de abstracción y ocultamiento, que atributos, propiedades y métodos deberían ser públicos y cuáles privados.
 
-####Todos los atributos deberian ser privados, y con sus respectivas propiedades en caso de necesitarlos desde ####otro lugar, y todos los metodos publicos salvo aquellos que sean necesarios para realizar alguna tarea dentro ####de la propia clase y que no es necesario que sea visto por el usuario.
+#### Todos los atributos deberian ser privados, y con sus respectivas propiedades en caso de necesitarlos desde otro lugar, y todos los metodos publicos salvo aquellos que sean necesarios para realizar alguna tarea  dentro de la propia clase y que no es necesario que sea visto por el usuario.
 
 ### ¿Cómo diseñaría los constructores de cada una de las clases?
 
 #### Cliente y Pedidos: un constructor que requiera todos los atributos.
-#### Cadeteria: constructor que requiera nombre,Telefono.
+#### Cadeteria: constructor que requiera nombre,Telefono y el constructor vacio porque lo necesito en la clase para carga de datos a partir del archivo csv.
+#### Cadete: tengo un constructor vacio para la carga a partir de archivo csv y uno con los parametros.
 
 
 

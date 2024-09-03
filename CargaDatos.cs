@@ -1,6 +1,3 @@
-using System.Xml.Schema;
-using Microsoft.VisualBasic;
-
 namespace tl2_tp1_2024_julietacolque
 {
     public static class CargaDatos

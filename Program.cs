@@ -108,7 +108,7 @@ internal class Program
                 default: Console.WriteLine("opcion invalida"); return SolicitarEstado();
             }
         }
-        //prueba
+    
 
         Pedido pedido0 = new("observacion0", "pedido0", "direccion0", "telefono0", "datos0");
         Pedido pedido1 = new("observacion1", "pedido1", "direccion1", "telefono1", "datos1");

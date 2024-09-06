@@ -34,10 +34,13 @@ internal class Program
                     cadeteria.AsignarCadeteAPedido(SolicitarId("cadete"), SolicitarId("pedido"));
                     break;
                 case 3:
-                    cadeteria.CambiarEstado(SolicitarId("pedido"), SolicitarId("cadete"), SolicitarEstado());
+                    cadeteria.CambiarEstado(SolicitarId("pedido"), SolicitarEstado());
                     break;
                 case 4:
                     cadeteria.AsignarCadeteAPedido(SolicitarId("cadete"), SolicitarId("pedido"));
+                    break;
+                case 5:
+                    Console.WriteLine(cadeteria.Informe().ToString());
                     break;
                 default:
                     Console.WriteLine("No existe la opcion");
@@ -63,6 +66,7 @@ internal class Program
             Console.WriteLine("\n2- Asignar pedido a cadete.");
             Console.WriteLine("\n3- Cambiar de estado un pedido.");
             Console.WriteLine("\n4- Reasignar pedido");
+            Console.WriteLine("\n5- Informe");
             Console.WriteLine("\nIngrese la opcion: ");
         }
 
@@ -91,16 +95,16 @@ internal class Program
 
         static Estados SolicitarEstado()
         {
-            Console.WriteLine("1- En curso .\n");
-            Console.WriteLine("2- Completado.\n");
-            Console.WriteLine("3- Cancelado. \n");
+            Console.WriteLine("0- En curso .\n");
+            Console.WriteLine("1- Completado.\n");
+            Console.WriteLine("2- Cancelado. \n");
             Console.WriteLine("Ingrese la opcion: ");
             var opc = Convert.ToInt32(Console.ReadLine());
             switch (opc)
             {
-                case 1: return Estados.EnCurso;
-                case 2: return Estados.Completado;
-                case 3: return Estados.Cancelado;
+                case 0: return Estados.EnCurso;
+                case 1: return Estados.Completado;
+                case 2: return Estados.Cancelado;
                 default: Console.WriteLine("opcion invalida"); return SolicitarEstado();
             }
         }
@@ -117,7 +121,7 @@ internal class Program
 
 
 
-        cadeteria.CambiarEstado(1, 1, Estados.Completado);
+        cadeteria.CambiarEstado(1, Estados.Completado);
 
         //cadeteria.Informe();
 

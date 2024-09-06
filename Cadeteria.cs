@@ -1,3 +1,5 @@
+using System.Text;
+
 namespace tl2_tp1_2024_julietacolque
 {
     public class Cadeteria
@@ -15,30 +17,33 @@ namespace tl2_tp1_2024_julietacolque
         {
 
         }
-        public void AltaPedido(Pedido pedido){
+        public void AltaPedido(Pedido pedido)
+        {
             ListaPedidos.Add(pedido);
         }
         public void AsignarCadeteAPedido(int id_cadete, int id_pedido)
+        {
+            Cadete cadete = ListadoCadetes.FirstOrDefault(c => c.Id == id_cadete);
+
+
+            foreach (var pedido in ListaPedidos)
+            {
+                if (pedido.Id == id_pedido)
+                {
+                    pedido.Cadete = cadete;
+                }
+            }
+        }
+
+
+
+        public void CambiarEstado(int id_pedido, Estados estado)
         {
             foreach (var pedido in ListaPedidos)
             {
                 if (pedido.Id == id_pedido)
                 {
-                    pedido.Cadete.Id = id_cadete;
-                }
-            }
-            //ListaPedidos[id_pedido].Cadete = ListadoCadetes[id_cadete];
-        }
-
-
-
-        public void CambiarEstado(int id_pedido, int id_cadete, Estados estado)
-        {
-            foreach (var cadete in ListadoCadetes)
-            {
-                if (cadete.Id == id_cadete)
-                {
-                    ListaPedidos[id_pedido].Estado = estado;
+                    pedido.Estado = estado;
                 }
             }
         }
@@ -64,32 +69,60 @@ namespace tl2_tp1_2024_julietacolque
             }
             return suma;
         }
-
-
-
-
-
-
-        public void Informe()
+        public int CantidadPedidos(int id_cadete)
         {
-            //var montoGanado = ListadoCadetes.Select(x => x.JornalACobrar()).ToList();
-            var cantEnvios = ListadoCadetes.Select(c => ListaPedidos.Count(p => p.Estado == Estados.Completado)).ToList();
-            var promedio = ListadoCadetes.Select(c => ListaPedidos.Any() ?
-                                                 ListaPedidos.Count(p => p.Estado == Estados.Completado) / (double)ListaPedidos.Count() : 0.0).ToList();
-
+            int suma = 0;
+            foreach (var pedido in ListaPedidos)
+            {
+                if (pedido.Cadete.Id == id_cadete)
+                {
+                    suma += 1;
+                }
+            }
+            return suma;
+        }
+        public int CantidadPedidosRealizados(int id_cadete)
+        {
+            int suma = 0;
+            foreach (var pedido in ListaPedidos)
+            {
+                if (pedido.Cadete.Id == id_cadete && pedido.Estado == Estados.Completado)
+                {
+                    suma += 1;
+                }
+            }
+            return suma;
+        }
+        public float MontoGanado()
+        {
+            float suma = 0;
+            for (int i = 0; i < ListadoCadetes.Count; i++)
+            {
+                suma += JornalACobrar(ListadoCadetes[i].Id);
+            }
+            return suma;
+        }
+        public StringBuilder Informe()
+        {
+            StringBuilder datos = new();
+            datos.AppendFormat("Monto Ganado:{0}\n", MontoGanado());
+            double promedio;
+            int cantPedidos, cantEnvios;
 
             for (int i = 0; i < ListadoCadetes.Count; i++)
             {
-                Console.WriteLine($"\n-----  Cadete {ListadoCadetes[i].Id}  -----");
-                // Console.WriteLine($"\nMonto Ganado: {montoGanado[i]}");
-                // Console.WriteLine($"\nCantidad de pedidos: {ListadoCadetes[i].ListaPedidos.Count}");
-                Console.WriteLine($"\nCantidad envios realizados: {cantEnvios[i]}");
-                Console.WriteLine($"\nPromedio de envios: {promedio[i] * 100}%");
+                cantPedidos = CantidadPedidos(ListadoCadetes[i].Id);
+                cantEnvios = CantidadPedidosRealizados(ListadoCadetes[i].Id);
+                promedio = (cantPedidos > 0) ? (double) cantEnvios / cantPedidos : 0;
+
+                datos.AppendFormat("\n-----  Cadete {0}-----",ListadoCadetes[i].Id);
+                datos.AppendFormat("\nCantidad de pedidos:{0}",cantPedidos);
+                datos.AppendFormat("\nCantidad envios realizados: {0}",cantEnvios);
+                datos.AppendFormat("\nPromedio de envios: {0}%",promedio * 100);
             }
 
+            return datos;
         }
-
-
     }
 
 
@@ -97,7 +130,7 @@ namespace tl2_tp1_2024_julietacolque
     /*D) Mostrar un informe de pedidos al finalizar la jornada que incluya el monto ganado
            y la cantidad de envíos de cada cadete y el total. Muestre también la cantidad de
            envíos promedio por cadete.
-      */
+    */
 }
 
 
@@ -118,5 +151,26 @@ namespace tl2_tp1_2024_julietacolque
         }
 
 
+
+*/
+
+/*
+public void Informe()
+        {
+            var cantEnvios = ListadoCadetes.Select(c => ListaPedidos.Count(p => p.Estado == Estados.Completado)).ToList();
+            var promedio = ListadoCadetes.Select(c => ListaPedidos.Any() ?
+                                                      ListaPedidos.Count(p => p.Estado == Estados.Completado) / (double)ListaPedidos.Count() : 0.0).ToList();
+
+
+            for (int i = 0; i < ListadoCadetes.Count; i++)
+            {
+                Console.WriteLine($"\n-----  Cadete {ListadoCadetes[i].Id}  -----");
+                Console.WriteLine($"\nMonto Ganado: {cantEnvios[i] * 500}");
+                Console.WriteLine($"\nCantidad de pedidos:{CantidadPedidos(ListadoCadetes[i].Id)}");
+                Console.WriteLine($"\nCantidad envios realizados: {cantEnvios[i]}");
+                Console.WriteLine($"\nPromedio de envios: {promedio[i] * 100}%");
+            }
+
+        }
 
 */

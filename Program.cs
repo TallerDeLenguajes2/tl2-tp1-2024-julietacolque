@@ -3,7 +3,7 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-       /*
+       
         string pathCSV = "Archivos/cadeteria.csv";
         string pathJSON = "Archivos/cadeteria.json";
         int opcion;
@@ -126,7 +126,6 @@ internal class Program
 
         //cadeteria.Informe();
 
-*/
 
 
 

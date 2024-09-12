@@ -28,7 +28,7 @@ internal class Program
             switch (opcion)
             {
                 case 1:
-                    cadeteria.AltaPedido(CrearPedido());
+                    //cadeteria.AltaPedido(CrearPedido());
                     break;
                 case 2:
                     cadeteria.AsignarCadeteAPedido(SolicitarId("cadete"), SolicitarId("pedido"));
@@ -40,7 +40,7 @@ internal class Program
                     cadeteria.AsignarCadeteAPedido(SolicitarId("cadete"), SolicitarId("pedido"));
                     break;
                 case 5:
-                    Console.WriteLine(cadeteria.Informe().ToString());
+                    Console.WriteLine(cadeteria.Informe(SolicitarId("cadete")).ToString());
                     break;
                 default:
                     Console.WriteLine("No existe la opcion");
@@ -115,9 +115,9 @@ internal class Program
         Pedido pedido2 = new("observacion2", "pedido2", "direccion2", "telefono2", "datos2");
 
 
-        cadeteria.AltaPedido(pedido0);
-        cadeteria.AltaPedido(pedido1);
-        cadeteria.AltaPedido(pedido2);
+        //cadeteria.AltaPedido(pedido0);
+        //cadeteria.AltaPedido(pedido1);
+        //cadeteria.AltaPedido(pedido2);
 
 
 
@@ -135,21 +135,6 @@ internal class Program
 }
 
 
-/*
-  var montoGanado = cadeteria.ListadoCadetes.Select(x => x.JornalACobrar()).ToList();
-  var cantEnvios = cadeteria.ListadoCadetes.Select(c => c.ListaPedidos.Count(p => p.Estado == Estados.Completado)).ToList();
-  var promedio = cadeteria.ListadoCadetes.Select(c => c.ListaPedidos.Count(p => p.Estado == Estados.Completado) / (double) c.ListaPedidos.Count()).ToList();
-  foreach (var prom in promedio)
-        {
-            System.Console.WriteLine(prom * 100);
-        }
-        var totalEnvios = cantEnvios.Sum();
-
-        var totalRecaudacion = montoGanado.Sum();
-
-        //System.Console.WriteLine(promedio);
-
-*/
 
 
 

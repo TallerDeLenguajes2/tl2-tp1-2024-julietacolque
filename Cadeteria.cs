@@ -17,8 +17,9 @@ namespace tl2_tp1_2024_julietacolque
         {
 
         }
-        public void AltaPedido(Pedido pedido)
+        public void AltaPedido(string obs, string nombre, string direccion, string telefono, string datos)
         {
+            Pedido pedido = new(obs,nombre,direccion,telefono,datos);
             ListaPedidos.Add(pedido);
         }
         public void AsignarCadeteAPedido(int id_cadete, int id_pedido)
@@ -102,28 +103,16 @@ namespace tl2_tp1_2024_julietacolque
             }
             return suma;
         }
-        public StringBuilder Informe()
-        {
-            StringBuilder datos = new();
-            datos.AppendFormat("Monto Ganado:{0}\n", MontoGanado());
-            double promedio;
-            int cantPedidos, cantEnvios;
 
-            for (int i = 0; i < ListadoCadetes.Count; i++)
-            {
-                cantPedidos = CantidadPedidos(ListadoCadetes[i].Id);
-                cantEnvios = CantidadPedidosRealizados(ListadoCadetes[i].Id);
-                promedio = (cantPedidos > 0) ? (double) cantEnvios / cantPedidos : 0;
+        public string Informe(int id_cadete){
+            
+            int cantPedidos = CantidadPedidosRealizados(id_cadete);
+            int cantEnvios = CantidadPedidos(id_cadete);
+            var promedio = (cantPedidos > 0) ? (double) cantEnvios / cantPedidos : 0;
 
-                datos.AppendFormat("\n-----  Cadete {0}-----",ListadoCadetes[i].Id);
-                datos.AppendFormat("\nCantidad de pedidos:{0}",cantPedidos);
-                datos.AppendFormat("\nCantidad envios realizados: {0}",cantEnvios);
-                datos.AppendFormat("\nPromedio de envios: {0}%",promedio * 100);
-            }
-
-            return datos;
+            return $"ID:{id_cadete}\nCantidad Pedidos:{cantPedidos}\nCantidad Envios:{cantEnvios}\nPromedio:{promedio}\nGanancia:{cantEnvios*500}";
         }
-    }
+    
 
 
 
@@ -133,44 +122,6 @@ namespace tl2_tp1_2024_julietacolque
     */
 }
 
-
-/*
-  public void ReasignarPedido(int id_cadete, int id_pedido, int nuevo_cadete)
-        {
-            Pedido pedido = null;
-            foreach (var cadete in ListadoCadetes)
-            {
-                if (cadete.Id == id_cadete)
-                {
-                    pedido = ListaPedidos[id_pedido];
-                    ListaPedidos.RemoveAt(id_pedido);
-                    break;
-                }
-            }
-            if (pedido != null) { AsignarPedido(pedido, nuevo_cadete); }
-        }
+}
 
 
-
-*/
-
-/*
-public void Informe()
-        {
-            var cantEnvios = ListadoCadetes.Select(c => ListaPedidos.Count(p => p.Estado == Estados.Completado)).ToList();
-            var promedio = ListadoCadetes.Select(c => ListaPedidos.Any() ?
-                                                      ListaPedidos.Count(p => p.Estado == Estados.Completado) / (double)ListaPedidos.Count() : 0.0).ToList();
-
-
-            for (int i = 0; i < ListadoCadetes.Count; i++)
-            {
-                Console.WriteLine($"\n-----  Cadete {ListadoCadetes[i].Id}  -----");
-                Console.WriteLine($"\nMonto Ganado: {cantEnvios[i] * 500}");
-                Console.WriteLine($"\nCantidad de pedidos:{CantidadPedidos(ListadoCadetes[i].Id)}");
-                Console.WriteLine($"\nCantidad envios realizados: {cantEnvios[i]}");
-                Console.WriteLine($"\nPromedio de envios: {promedio[i] * 100}%");
-            }
-
-        }
-
-*/

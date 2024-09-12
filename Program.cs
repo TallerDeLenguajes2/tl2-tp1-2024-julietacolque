@@ -1,8 +1,9 @@
-﻿using tl2_tp1_2024_julietacolque;
+﻿using bibliotecaCadeteria;
 internal class Program
 {
     private static void Main(string[] args)
     {
+       /*
         string pathCSV = "Archivos/cadeteria.csv";
         string pathJSON = "Archivos/cadeteria.json";
         int opcion;
@@ -125,7 +126,7 @@ internal class Program
 
         //cadeteria.Informe();
 
-
+*/
 
 
 
